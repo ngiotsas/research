@@ -1,5 +1,8 @@
+.current-data{
+            display: none;
+        }<!DOCTYPE html>
 <html>
- <head>
+<head>
    <title>Ngiotsas & vgiotsas public research</title>
    <style>
         .note a{
@@ -11,6 +14,9 @@
         .nbsp-s{
             text-decoration: underline;
         }
+        .current-data{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -21,9 +27,19 @@
     <br>
     <!--2026 data-->
     <!--<a href="more.2025">More 2025 data</a>-->
+    <br>
+    <button onclick="openCurrentData()">Current Data</button>
+    <br>
     <a class="nbsp-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
     <footer class="footer">
         &copy; ngiotsas & vgiotsas 2025
     </footer>
+    
+    <script>
+        function openCurrentData() {
+            var currentYear = new Date().getFullYear();
+            window.open(currentYear + '.data', '_blank');
+        }
+    </script>
 </body>
 </html>
