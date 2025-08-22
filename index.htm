@@ -16,6 +16,34 @@
         h1{
             color:red;
         }
+        .accessibility-popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .accessibility-popup-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 350px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -26,6 +54,8 @@
     <br>
         <a  title="(opens in a new tab)" href="https://github.com/ngiotsas/research" target="_blank">
         <img src="https://img.shields.io/badge/View%20on-GitHub-blue?logo=github&style=flat" alt="View on GitHub"></a>
+    <br>
+    <button onclick="openAccessibilityMenu()">Accessibility</button>
     <!---->
     <!---->
     <!---->
@@ -77,11 +107,110 @@
     <footer class="footer">
         &copy; ngiotsas & vgiotsas 2025
     </footer>
+    
+    <!-- Accessibility Menu -->
+    <div id="accessibilityPopup" class="accessibility-popup">
+        <div class="accessibility-popup-content">
+            <span class="close" onclick="closeAccessibilityMenu()">&times;</span>
+            <h2>Accessibility Options</h2>
+            <button onclick="increaseFontSize();">Increase Font Size</button>
+            <button onclick="decreaseFontSize();">Decrease Font Size</button>
+            <br><br>
+            <button onclick="toggleHighContrast();">High Contrast</button>
+            <button onclick="toggleDyslexiaFont();">Dyslexia Font</button>
+            <br><br>
+            <button onclick="resetAccessibility();">Reset All</button>
+        </div>
+    </div>
     <script>
         // This function is used to detect the current year, used for the "Current Data" button.
         function openCurrentData() {
             var currentYear = new Date().getFullYear();
             window.open(currentYear + '.data', '_blank');
+        }
+        
+        // Accessibility features
+        var currentFontSize = 1;
+        
+        function increaseFontSize() {
+            currentFontSize += 0.1;
+            document.body.style.fontSize = currentFontSize + 'em';
+            // Also increase button font sizes
+            var buttons = document.getElementsByTagName('button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.fontSize = currentFontSize + 'em';
+            }
+        }
+        
+        function decreaseFontSize() {
+            if (currentFontSize > 0.1) {
+                currentFontSize -= 0.1;
+                document.body.style.fontSize = currentFontSize + 'em';
+                // Also decrease button font sizes
+                var buttons = document.getElementsByTagName('button');
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].style.fontSize = currentFontSize + 'em';
+                }
+            }
+        }
+        
+        function toggleHighContrast() {
+            var body = document.body;
+            var popup = document.querySelector('.accessibility-popup-content');
+            if (body.style.backgroundColor === 'rgb(0, 0, 0)') {
+                body.style.backgroundColor = '';
+                body.style.color = '';
+                popup.style.backgroundColor = 'white';
+                popup.style.color = 'black';
+            } else {
+                body.style.backgroundColor = '#000000';
+                body.style.color = '#ffffff';
+                popup.style.backgroundColor = '#000000';
+                popup.style.color = '#ffffff';
+            }
+        }
+        
+        function toggleDyslexiaFont() {
+            var body = document.body;
+            if (body.style.fontFamily === 'monospace') {
+                body.style.fontFamily = '';
+            } else {
+                body.style.fontFamily = 'monospace';
+            }
+        }
+        
+        function resetAccessibility() {
+            currentFontSize = 1;
+            document.body.style.fontSize = '';
+            document.body.style.backgroundColor = '';
+            document.body.style.color = '';
+            document.body.style.fontFamily = '';
+            // Reset button font sizes
+            var buttons = document.getElementsByTagName('button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.fontSize = '';
+            }
+            // Reset popup colors
+            var popup = document.querySelector('.accessibility-popup-content');
+            popup.style.backgroundColor = 'white';
+            popup.style.color = 'black';
+        }
+        
+        // Accessibility menu functions
+        function openAccessibilityMenu() {
+            document.getElementById('accessibilityPopup').style.display = 'block';
+        }
+        
+        function closeAccessibilityMenu() {
+            document.getElementById('accessibilityPopup').style.display = 'none';
+        }
+        
+        // Close popup when clicking outside of it
+        window.onclick = function(event) {
+            var accessibilityPopup = document.getElementById('accessibilityPopup');
+            if (event.target == accessibilityPopup) {
+                accessibilityPopup.style.display = 'none';
+            }
         }
     </script>
 </body>
